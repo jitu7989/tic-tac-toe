@@ -1,13 +1,16 @@
 import { useState } from "react";
 
-export default function Player({initialName,symbol,isActive}) {
+export default function Player({initialName,symbol,isActive,onChangeName}) {
 
     const [playerName, setPlayerName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
 
     const onChange = (event)=> setPlayerName(event.target.value);
     
-    const onEdit = () =>  setIsEditing((editing)=>!editing);
+    const onEdit = () =>  {
+      setIsEditing((editing)=>!editing);
+      if(isEditing) onChangeName(symbol,playerName);
+    };
     
     const playerInputField=() => (<input type="text" className="player-name" defaultValue={initialName} onChange={onChange} />);
     
